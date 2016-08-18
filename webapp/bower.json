@@ -1,0 +1,13 @@
+{
+  "name": "webapp",
+  "version": "0.0.1",
+  "ignore": [
+    "**/.*"
+  ],
+  "private": true,
+  "dependencies": {
+    "angular": "1.2.26",
+    "angular-mocks": "1.2.26",
+    "foundation-sites": "5.5.3"
+  }
+}

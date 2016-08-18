@@ -1,0 +1,164 @@
+<!doctype html>
+<html class="no-js" lang="en" data-ng-app="webapp">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gender Inlaws</title>
+    <!-- <link rel="stylesheet" href="css/foundation.css" /> -->
+    <link rel="stylesheet" href="http://cdn.foundation5.zurb.com/foundation.css" />
+  </head>
+  <body>
+    <h1>Gender Inlaws</h1>
+
+<div ng-controller="ChangeController" id="page_content">
+<formn ovalidate class="simple-form">
+	<div class="row">
+    <div class="large-6 columns">
+      <label>Is the person changing their gender and name under 18?</label>
+      <input id="checkbox1" type="checkbox" ng-model="user.under18"><label for="checkbox1">Under 18?</label>
+    </div>
+  </div>
+
+	<div class="row">
+		<div class="large-12 columns">
+			<label>Type of Correction
+				<select ng-model="user.direction">
+					<option value="mtf">Assigned Male Correcting to Female</option>
+					<option value="ftm">Assigned Female Correcting to Male</option>
+				</select>
+			</label>
+		</div>
+	</div>
+
+  <div class="row">
+    <div class="large-12 columns">
+      <label>Changing From (full name)
+        <input type="text" placeholder="John Q. Private" ng-model="user.mistake" />
+      </label>
+    </div>
+  </div>
+
+	<div class="row">
+		<div class="large-12 columns">
+			<label>Changing To (full name)
+				<input type="text" placeholder="Jane R. Public" ng-model="user.name" />
+			</label>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="large-12 columns">
+			<label>Your Address
+				<input type="text" placeholder="Your Address" ng-model="user.address" />
+			</label>
+		</div>
+	</div>
+
+  <div class="row">
+    <div class="large-6 columns">
+      <label>City
+        <input type="text" placeholder="City" ng-model="user.city" />
+      </label>
+    </div>
+    <div class="large-6 columns">
+      <label>State
+        <input type="text" placeholder="State" value="California" disabled="disabled" ng-model="user.state"  />
+      </label>
+    </div>
+  </div>
+
+	<div class="row">
+    <div class="large-6 columns">
+      <label>Zip
+        <input type="text" placeholder="Zip" ng-model="user.zip" />
+      </label>
+    </div>
+    <div class="large-6 columns">
+    </div>
+  </div>
+
+	<div class="row">
+		<div class="large-12 columns">
+			<label>Court Name
+				<input type="text" placeholder="Superior Court of Orange County" ng-model="user.court_name" />
+			</label>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="large-12 columns">
+			<label>Court Address
+				<input type="text" placeholder="700 Washington Ave #900" ng-model="user.court_address" />
+			</label>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="large-12 columns">
+			<label>Court City, State Zip
+				<input type="text" placeholder="Santa Ana, CA 92737" ng-model="user.court_location" />
+			</label>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="large-12 columns">
+			<label>Deliver PDFs Destination Email
+				<input type="text" placeholder="Your Email Address" ng-model="user.email"  />
+			</label>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="large-6 columns">
+			<label>Sign up for our newsletter?</label>
+			<input id="checkbox1" type="checkbox" checked="checked" ng-model="user.newsletter"><label for="checkbox1">Newsletter</label>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="large-6 columns">
+			<input type="submit" value="Submit" ng-click="update(user)" class="button"/>
+			<input type="reset" value="Reset" ng-click="reset()" class="button"/>
+		</div>
+	</div>
+
+</form>
+</div>
+
+<script>
+function ChangeController($scope) {
+	$scope.master = {};
+
+	$scope.update = function(user) {
+		$scope.master = angular.copy(user);
+	};
+
+	$scope.reset = function() {
+		$scope.user = angular.copy($scope.master);
+	};
+
+	$scope.submitForm = function() {
+		console.log("posting data....");
+		$http.post('http://localhost:9999/changes', JSON.stringify(data)).success(function(){
+			$("#page_content").html("<h1>Thanks! You'll receive an email shortly!</h1>")
+		});
+	};
+	$scope.reset();
+}
+
+angular
+.module('webapp', [])
+    .controller('ChangeController', ['$scope', ChangeController]);
+</script>
+
+    <script src="js/vendor/jquery.min.js"></script>
+    <script src="js/vendor/what-input.min.js"></script>
+    <script src="js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+    </script>
+
+  </body>
+</html>
